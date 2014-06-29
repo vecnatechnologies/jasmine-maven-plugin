@@ -83,12 +83,18 @@ public class TestMojo extends AbstractJasmineMojo {
   }
   private JasmineResult executeSpecs(URL runner) throws Exception {
     WebDriver driver = this.createDriver();
-    JasmineResult result = new SpecRunnerExecutor().execute(
-        runner,
-        new File(this.jasmineTargetDir,this.junitXmlReportFileName),
-        driver,
-        this.timeout, this.debug, this.getLog(), this.format);
-    return result;
+    try {
+      JasmineResult result = new SpecRunnerExecutor().execute(
+          runner,
+          new File(this.jasmineTargetDir, this.junitXmlReportFileName),
+          driver,
+          this.timeout, this.debug, this.getLog(), this.format);
+      return result;
+    } finally {
+      if (driver != null) {
+        driver.quit();
+      }
+    }
   }
 
   private WebDriver createDriver() throws Exception {
