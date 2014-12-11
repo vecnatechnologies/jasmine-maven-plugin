@@ -1,11 +1,10 @@
 package com.github.searls.jasmine.mojo;
 
-import com.github.searls.jasmine.config.JasmineConfiguration;
-import com.github.searls.jasmine.exception.StringifiesStackTraces;
-import com.github.searls.jasmine.io.ScansDirectory;
-import com.github.searls.jasmine.model.ScriptSearch;
-import com.github.searls.jasmine.runner.SpecRunnerTemplate;
-import com.github.searls.jasmine.thirdpartylibs.ProjectClassLoaderFactory;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -16,10 +15,12 @@ import org.codehaus.plexus.resource.ResourceManager;
 import org.codehaus.plexus.resource.loader.FileResourceLoader;
 import org.eclipse.jetty.server.Connector;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import com.github.searls.jasmine.config.JasmineConfiguration;
+import com.github.searls.jasmine.exception.StringifiesStackTraces;
+import com.github.searls.jasmine.io.ScansDirectory;
+import com.github.searls.jasmine.model.ScriptSearch;
+import com.github.searls.jasmine.runner.SpecRunnerTemplate;
+import com.github.searls.jasmine.thirdpartylibs.ProjectClassLoaderFactory;
 
 public abstract class AbstractJasmineMojo extends AbstractMojo implements JasmineConfiguration {
 
@@ -96,6 +97,9 @@ public abstract class AbstractJasmineMojo extends AbstractMojo implements Jasmin
 	 */
   @Parameter
   protected List<Capability> webDriverCapabilities = Collections.emptyList();
+
+  @Parameter(defaultValue="")
+  protected String chromeDriverCommandLineArgs;
 
 	/**
 	 * <p>Determines the browser and version profile that HtmlUnit will simulate. This setting does nothing if the plugin is configured not to use HtmlUnit.

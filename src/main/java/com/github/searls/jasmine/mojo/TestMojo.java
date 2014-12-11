@@ -93,6 +93,8 @@ public class TestMojo extends AbstractJasmineMojo {
 
   private WebDriver createDriver() throws Exception {
     WebDriverFactory factory = new WebDriverFactory();
+    this.getLog().info("Setting the following command line args for ChromeDriver: " + chromeDriverCommandLineArgs);
+    factory.setChromeDriverCommandLineArgs(chromeDriverCommandLineArgs);
     factory.setWebDriverCapabilities(webDriverCapabilities);
     factory.setWebDriverClassName(webDriverClassName);
     factory.setDebug(debug);
