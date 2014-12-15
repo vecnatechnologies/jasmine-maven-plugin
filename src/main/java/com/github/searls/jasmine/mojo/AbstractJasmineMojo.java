@@ -1,11 +1,10 @@
 package com.github.searls.jasmine.mojo;
 
-import com.github.searls.jasmine.config.JasmineConfiguration;
-import com.github.searls.jasmine.exception.StringifiesStackTraces;
-import com.github.searls.jasmine.io.ScansDirectory;
-import com.github.searls.jasmine.model.ScriptSearch;
-import com.github.searls.jasmine.runner.SpecRunnerTemplate;
-import com.github.searls.jasmine.thirdpartylibs.ProjectClassLoaderFactory;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -16,10 +15,12 @@ import org.codehaus.plexus.resource.ResourceManager;
 import org.codehaus.plexus.resource.loader.FileResourceLoader;
 import org.eclipse.jetty.server.Connector;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import com.github.searls.jasmine.config.JasmineConfiguration;
+import com.github.searls.jasmine.exception.StringifiesStackTraces;
+import com.github.searls.jasmine.io.ScansDirectory;
+import com.github.searls.jasmine.model.ScriptSearch;
+import com.github.searls.jasmine.runner.SpecRunnerTemplate;
+import com.github.searls.jasmine.thirdpartylibs.ProjectClassLoaderFactory;
 
 public abstract class AbstractJasmineMojo extends AbstractMojo implements JasmineConfiguration {
 
@@ -96,6 +97,13 @@ public abstract class AbstractJasmineMojo extends AbstractMojo implements Jasmin
 	 */
   @Parameter
   protected List<Capability> webDriverCapabilities = Collections.emptyList();
+
+  /**
+   * <p>A comma-separated list of command-line arguments to initialize Chrome with.
+   * Only used if webDriverClassName is org.openqa.selenium.chrome.ChromeDriver.</p>
+   */
+  @Parameter(defaultValue="")
+  protected String chromeDriverCommandLineArgs;
 
 	/**
 	 * <p>Determines the browser and version profile that HtmlUnit will simulate. This setting does nothing if the plugin is configured not to use HtmlUnit.
@@ -313,7 +321,7 @@ public abstract class AbstractJasmineMojo extends AbstractMojo implements Jasmin
 	 * @since 1.1.0
 	 */
 	@Parameter
-	private final List<String> sourceIncludes = ScansDirectory.DEFAULT_INCLUDES;
+	private List<String> sourceIncludes = ScansDirectory.DEFAULT_INCLUDES;
 
 	/**
 	 * <p>Just like <code>sourceIncludes</code>, but will exclude anything matching the provided patterns.</p>
@@ -322,7 +330,7 @@ public abstract class AbstractJasmineMojo extends AbstractMojo implements Jasmin
 	 * @since 1.1.0
 	 */
 	@Parameter
-	private final List<String> sourceExcludes = Collections.emptyList();
+	private List<String> sourceExcludes = Collections.emptyList();
 
 	/**
 	 * <p>I often find myself needing control of the spec include order
@@ -460,7 +468,7 @@ public abstract class AbstractJasmineMojo extends AbstractMojo implements Jasmin
    * @since 1.3.1.5
    */
   @Parameter
-  private List<Context> additionalContexts = Collections.emptyList();
+  private final List<Context> additionalContexts = Collections.emptyList();
 
   @Parameter(defaultValue="${project}", readonly=true)
 	protected MavenProject mavenProject;
