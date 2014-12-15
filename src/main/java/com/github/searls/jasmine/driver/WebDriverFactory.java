@@ -96,9 +96,7 @@ public class WebDriverFactory {
   }
 
   private Object[] getWebDriverConstructorArguments(Constructor<? extends WebDriver> constructor) {
-
     DesiredCapabilities capabilities = getCapabilities();
-    // if the web driver is chromedriver, and if there actually are command line arguments
     if (ChromeDriver.class.getName().equals(webDriverClassName) && !chromeDriverCommandLineArgs.isEmpty()) {
       Map<String, Object> chromeOptions = new HashMap<String, Object>();
       chromeOptions.put("args", chromeDriverCommandLineArgs);

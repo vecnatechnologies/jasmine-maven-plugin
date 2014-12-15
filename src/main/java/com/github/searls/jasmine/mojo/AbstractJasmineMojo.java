@@ -98,6 +98,10 @@ public abstract class AbstractJasmineMojo extends AbstractMojo implements Jasmin
   @Parameter
   protected List<Capability> webDriverCapabilities = Collections.emptyList();
 
+  /**
+   * <p>A comma-separated list of command-line arguments to initialize Chrome with.
+   * Only used if webDriverClassName is org.openqa.selenium.chrome.ChromeDriver.</p>
+   */
   @Parameter(defaultValue="")
   protected String chromeDriverCommandLineArgs;
 
@@ -464,7 +468,7 @@ public abstract class AbstractJasmineMojo extends AbstractMojo implements Jasmin
    * @since 1.3.1.5
    */
   @Parameter
-  private List<Context> additionalContexts = Collections.emptyList();
+  private final List<Context> additionalContexts = Collections.emptyList();
 
   @Parameter(defaultValue="${project}", readonly=true)
 	protected MavenProject mavenProject;
