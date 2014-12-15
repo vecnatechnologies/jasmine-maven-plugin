@@ -321,7 +321,7 @@ public abstract class AbstractJasmineMojo extends AbstractMojo implements Jasmin
 	 * @since 1.1.0
 	 */
 	@Parameter
-	private final List<String> sourceIncludes = ScansDirectory.DEFAULT_INCLUDES;
+	private List<String> sourceIncludes = ScansDirectory.DEFAULT_INCLUDES;
 
 	/**
 	 * <p>Just like <code>sourceIncludes</code>, but will exclude anything matching the provided patterns.</p>
@@ -330,7 +330,7 @@ public abstract class AbstractJasmineMojo extends AbstractMojo implements Jasmin
 	 * @since 1.1.0
 	 */
 	@Parameter
-	private final List<String> sourceExcludes = Collections.emptyList();
+	private List<String> sourceExcludes = Collections.emptyList();
 
 	/**
 	 * <p>I often find myself needing control of the spec include order
